@@ -25,34 +25,35 @@ export default {
       }, 500); // Puedes ajustar el tiempo si deseas que el loader esté visible por un momento
     });
   },
+  computed: {
+    // Computed para verificar si la ruta actual es login o register
+    isAuthRoute() {
+      return this.$route.path === "/login" || this.$route.path === "/register";
+      },
+  },
   mounted() {
     // Simular un proceso de carga inicial para ocultar el loader después de la carga inicial
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
   },
-
-}
+};
 </script>
 
 <template>
   <pv-toast />
-  <Navbar />
+  <!-- Mostrar Navbar solo si no es la ruta de login o register -->
+  <Navbar v-if="!isAuthRoute" />
   <LoadingSpinner v-if="isLoading" :loading="isLoading" />
   <div v-else>
-
-  <div class="component-container">
-    <RouterView />
+    <div class="component-container">
+      <RouterView />
+    </div>
   </div>
-  </div>
-
-
 </template>
 
-
-
 <style>
-body{
+body {
   margin: 0;
 }
 </style>
