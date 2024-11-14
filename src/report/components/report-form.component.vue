@@ -22,6 +22,168 @@ export default {
           tcea: "4%",
           total: "S/. 2000.00"
         },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
+        {
+          factura: "2111222",
+          monto: "S/. 10.00",
+          interes: "30%",
+          emision: "10/09/2024",
+          vencimiento: "23/09/2024",
+          tcea: "4%",
+          total: "S/. 2000.00"
+        },
         // Agrega más filas según sea necesario
       ],
       tceaTotal: "-"
@@ -54,44 +216,41 @@ export default {
 <template>
   <main>
     <div class="report-header">
-      <h2>VISUALIZACIÓN DE REPORTE</h2>
-      <button class="refresh-button" @click="refreshData">
-        <i class="fa-solid fa-arrows-rotate"></i>
-      </button>
+
+
     </div>
-    <table>
-      <thead>
-      <tr>
-        <th>N° de Factura</th>
-        <th>Monto en S/. o $</th>
-        <th>Tasa de Interés (%)</th>
-        <th>Fecha de Emisión</th>
-        <th>Fecha de Vencimiento</th>
-        <th>TCEA Calculado</th>
-        <th>Totales</th>
-        <th>Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(row, index) in rows" :key="index">
-        <td>{{ row.factura }}</td>
-        <td>{{ row.monto }}</td>
-        <td>{{ row.interes }}</td>
-        <td>{{ row.emision }}</td>
-        <td>{{ row.vencimiento }}</td>
-        <td>{{ row.tcea }}</td>
-        <td>{{ row.total }}</td>
-        <td>
-          <button @click="printRecord">🖨️</button>
-          <button @click="shareRecord">🔗</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <div class="pagination">
-      <button class="pagination-button" @click="prevPage">◀</button>
-      <button class="pagination-button" @click="nextPage">▶</button>
+    <div class="table-container">
+      <table>
+        <thead>
+        <tr>
+          <th>N° de Factura</th>
+          <th>Monto en S/. o $</th>
+          <th>Tasa de Interés (%)</th>
+          <th>Fecha de Emisión</th>
+          <th>Fecha de Vencimiento</th>
+          <th>TCEA Calculado</th>
+          <th>Totales</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, index) in rows.slice(0, 10)" :key="index">
+          <td>{{ row.factura }}</td>
+          <td>{{ row.monto }}</td>
+          <td>{{ row.interes }}</td>
+          <td>{{ row.emision }}</td>
+          <td>{{ row.vencimiento }}</td>
+          <td>{{ row.tcea }}</td>
+          <td>{{ row.total }}</td>
+          <td>
+            <button @click="printRecord">🖨️</button>
+            <button @click="shareRecord">🔗</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
+
     <div class="calculate-section">
       <button id="calculate-button" @click="calculateTCEA">Calcular TCEA Total</button>
       <span id="tcea-total" class="result-text">{{ tceaTotal }}</span>
@@ -145,6 +304,11 @@ main {
   border-radius: 5px;
   display: flex;
   align-items: center;
+}
+
+.table-container {
+  max-height: 500px; /* Altura máxima de la tabla */
+  overflow-y: auto; /* Scroll vertical */
 }
 
 table {
@@ -228,5 +392,3 @@ tbody tr:hover {
   color: #333; /* Color del total en negro */
 }
 </style>
-
-

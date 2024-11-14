@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="report-visualization-container">
     <h1>VISUALIZACIÓN DEL REPORTE</h1>
     <div class="table-container">
       <TableReportComponent />
@@ -19,13 +19,12 @@ export default {
 </template>
 
 <style scoped>
+
 h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #39869E;
 }
 
-.table-container {
-  padding: 20px;
-}
+
 </style>

@@ -8,7 +8,7 @@ name:"letter",
 </script>
 
 <template>
-  <h1>REGISTRO DE LETRAS</h1>
+
   <div class="form-container">
     <letter-creation-form/>
   </div>
