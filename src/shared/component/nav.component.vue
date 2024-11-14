@@ -1,17 +1,31 @@
 <script>
 export default {
-  name: "nav",
+  name: "navbar",
 }
 </script>
 
 <template>
-  <div class="logo">EasyWallet</div>
-  <nav>
-    <button class="nav-button">Registra tu Letra</button>
-    <button class="nav-button">Listado de Letras</button>
-    <button class="nav-button">Cartera</button>
-    <button class="logout-button">⤴️</button>
-  </nav>
+  <pv-toolbar>
+    <template #start>
+      <div class="toolbar">
+        <div class="logo">EasyWallet</div>
+        <div class="nav-buttons">
+          <!-- Enlace a la página de registro de letras -->
+          <router-link to="/register-letter" class="nav-button">Registra tu Letra</router-link>
+
+          <!-- Enlace a la página de reportes -->
+          <router-link to="/report-page" class="nav-button">Listado de Letras</router-link>
+
+          <!-- Enlace para Cartera (puedes agregar esta ruta en el enrutador si aún no está definida) -->
+          <router-link to="/portfolio" class="nav-button">Cartera</router-link>
+
+          <!-- Botón de cierre de sesión (si es solo un botón sin navegación) -->
+          <button class="logout-button">⤴️</button>
+        </div>
+      </div>
+    </template>
+  </pv-toolbar>
+
 </template>
 
 <style>

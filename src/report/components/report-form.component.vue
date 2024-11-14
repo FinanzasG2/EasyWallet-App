@@ -24,7 +24,7 @@ export default {
         },
         // Agrega más filas según sea necesario
       ],
-      tceaTotal: "20%"
+      tceaTotal: "-"
     };
   },
   methods: {
@@ -45,7 +45,7 @@ export default {
       alert("Página siguiente");
     },
     calculateTCEA() {
-      this.tceaTotal = "Resultado TCEA"; // Ajusta esto según sea necesario
+      this.tceaTotal = "20%"; // Ajusta esto según sea necesario
     }
   }
 };
@@ -111,34 +111,16 @@ export default {
 }
 
 body {
-  background-color: #f9f9f9;
-}
-
-header {
-  background-color: #2d7e9f;
-  color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header h1 {
-  margin-left: 10px;
-  font-size: 24px;
-}
-
-header nav button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin-left: 15px;
-  cursor: pointer;
+  background-color: #f9f9f9; /* Fondo general claro */
 }
 
 main {
   padding: 20px;
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: #ffffff; /* Fondo blanco para el contenido */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .report-header {
@@ -150,7 +132,7 @@ main {
 
 .report-header h2 {
   font-size: 24px;
-  color: #3a3a3a;
+  color: #3a3a3a; /* Título en color negro */
 }
 
 .refresh-button {
@@ -160,27 +142,38 @@ main {
   border: none;
   padding: 8px 16px;
   cursor: pointer;
-  border-radius: 25px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 thead {
   background-color: #e0e0e0;
-}
-
-thead th {
-  padding: 10px;
   text-align: left;
 }
 
+thead th {
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: #3a3a3a; /* Texto en negro en el encabezado */
+}
+
 tbody td {
-  padding: 10px;
+  padding: 12px;
   border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  color: #3a3a3a; /* Texto en negro en las filas */
 }
 
 tbody tr {
@@ -193,7 +186,7 @@ tbody tr:hover {
 
 .pagination {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .pagination-button {
@@ -219,16 +212,21 @@ tbody tr:hover {
   border: none;
   cursor: pointer;
   margin-right: 10px;
+  border-radius: 5px;
 }
 
 .result-text {
   font-size: 16px;
-  color: #333;
+  color: #333; /* Color del resultado en negro */
+  margin-left: 10px;
 }
 
 .total-section {
   text-align: right;
   font-size: 16px;
   margin-top: 10px;
+  color: #333; /* Color del total en negro */
 }
 </style>
+
+

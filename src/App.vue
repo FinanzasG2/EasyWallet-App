@@ -1,18 +1,20 @@
 <script>
-import Nav from "@/shared/component/nav.component.vue";
+import Navbar from "@/shared/component/nav.component.vue";
 export default {
   components: {
-    Nav,
+    Navbar,
   },
 
 }
 </script>
 
 <template>
-  <header>
-    <nav/>
-    <RouterView/>
-  </header>
+  <pv-toast />
+    <Navbar/>
+<div>
+  <RouterView/>
+</div>
+
 
 </template>
 
