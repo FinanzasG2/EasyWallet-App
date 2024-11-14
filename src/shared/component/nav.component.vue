@@ -14,10 +14,10 @@ export default {
           <router-link to="/register-letter" class="nav-button">Registra tu Letra</router-link>
 
           <!-- Enlace a la página de reportes -->
-          <router-link to="/report-page" class="nav-button">Listado de Letras</router-link>
+          <router-link to="/letter-list" class="nav-button">Listado de Letras</router-link>
 
           <!-- Enlace para Cartera (puedes agregar esta ruta en el enrutador si aún no está definida) -->
-          <router-link to="/portfolio" class="nav-button">Cartera</router-link>
+          <router-link to="/report-page" class="nav-button">Cartera</router-link>
 
           <!-- Botón de cierre de sesión (si es solo un botón sin navegación) -->
           <button class="logout-button">&#10140</button>
