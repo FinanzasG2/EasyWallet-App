@@ -25,6 +25,7 @@
               placeholder="Correo electrónico"
               class="form-input"
           />
+          <span v-if="email && !isValidEmail" class="error-text">Formato de correo inválido</span>
         </div>
 
         <div class="form-group">
@@ -34,6 +35,9 @@
               placeholder="Contraseña"
               class="form-input"
           />
+          <span v-if="password && !isValidPassword" class="error-text">
+            La contraseña debe tener al menos 8 caracteres, 1 mayúscula y 1 carácter especial
+          </span>
         </div>
 
         <div class="form-group">
@@ -43,6 +47,9 @@
               placeholder="Confirmar contraseña"
               class="form-input"
           />
+          <span v-if="confirmPassword && confirmPassword !== password" class="error-text">
+            Las contraseñas no coinciden
+          </span>
         </div>
 
         <p class="terms-text">
@@ -51,7 +58,7 @@
           <a href="#">Política de cookies</a>.
         </p>
 
-        <button type="submit" class="btn-primary">Registrarse</button>
+        <button type="submit" class="btn-primary" :disabled="!isFormValid">Registrarse</button>
       </form>
       <p class="login-text">
         ¿Tienes una cuenta? <a href="/login">Inicia sesión</a>
@@ -71,9 +78,30 @@ export default {
       confirmPassword: '',
     };
   },
+  computed: {
+    isValidEmail() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(this.email);
+    },
+    isValidPassword() {
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
+      return passwordRegex.test(this.password);
+    },
+    isFormValid() {
+      return (
+          this.firstName &&
+          this.lastName &&
+          this.isValidEmail &&
+          this.isValidPassword &&
+          this.password === this.confirmPassword
+      );
+    },
+  },
   methods: {
     submitForm() {
-      alert('Formulario de registro enviado');
+      if (this.isFormValid) {
+        alert('Formulario de registro enviado');
+      }
     },
   },
 };
@@ -86,7 +114,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('https://your-background-image-url.jpg'); /* Reemplaza con la URL de tu imagen de fondo */
+  background-image: url('../../../src/assets/background.png');
   background-size: cover;
   background-position: center;
 }
@@ -127,6 +155,14 @@ export default {
   box-sizing: border-box;
 }
 
+/* Texto de error */
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  text-align: left;
+  margin-top: 0.5rem;
+}
+
 /* Estilo de texto para los términos */
 .terms-text {
   font-size: 0.8rem;
@@ -157,7 +193,12 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-primary:hover:enabled {
   background-color: #236581;
 }
 

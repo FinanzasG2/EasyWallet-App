@@ -53,7 +53,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('https://your-background-image-url.jpg'); /* Reemplaza con la URL de tu imagen de fondo */
+  background-image: url('../../../src/assets/background.png');
   background-size: cover;
   background-position: center;
 }
