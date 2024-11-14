@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 import LetterCreationPage from "@/management/pages/letter-creation.page.vue";
+import LetterListPage from "@/management/pages/letter-list.page.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -7,8 +8,9 @@ const router = createRouter({
         //Autenthication
 
         //Letter
-        { path: '/', redirect: '/register-letter'},
+        { path: '/', redirect: '/list-letter'},
         {path: '/register-letter', name: 'Letter Creation Page', component: LetterCreationPage,meta: { requiresAuth: false } },
+        {path: '/list-letter', name: 'Letter List Page', component: LetterListPage,meta: { requiresAuth: false } },
 
     ]
 })

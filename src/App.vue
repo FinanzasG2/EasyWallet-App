@@ -1,8 +1,8 @@
 <script>
-import Nav from "@/shared/component/nav.component.vue";
+import Navbar from "@/shared/component/nav.component.vue";
 export default {
   components: {
-    Nav,
+    Navbar,
   },
 
 }
@@ -10,7 +10,7 @@ export default {
 
 <template>
   <header>
-    <nav/>
+    <Navbar/>
     <RouterView/>
   </header>
 
