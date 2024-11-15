@@ -6,14 +6,14 @@
         <div class="form-group">
           <input
               type="text"
-              v-model="firstName"
-              placeholder="Nombre"
+              v-model="name"
+              placeholder="Nombre Completo"
               class="form-input"
           />
           <input
               type="text"
-              v-model="lastName"
-              placeholder="Apellido"
+              v-model="username"
+              placeholder="Nombre de Usuario"
               class="form-input"
           />
         </div>
@@ -68,11 +68,13 @@
 </template>
 
 <script>
+import AuthApiService from "@/auth/services/authApiService.js";
+
 export default {
   data() {
     return {
-      firstName: '',
-      lastName: '',
+      name: '',
+      username: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -89,8 +91,8 @@ export default {
     },
     isFormValid() {
       return (
-          this.firstName &&
-          this.lastName &&
+          this.name &&
+          this.username &&
           this.isValidEmail &&
           this.isValidPassword &&
           this.password === this.confirmPassword
@@ -98,9 +100,18 @@ export default {
     },
   },
   methods: {
-    submitForm() {
-      if (this.isFormValid) {
-        alert('Formulario de registro enviado');
+    async submitForm() {
+      if (!this.isFormValid) {
+        alert("Por favor, complete todos los campos correctamente.");
+        return;
+      }
+
+      try {
+        await AuthApiService.register(this.name, this.username, this.email, this.password);
+        alert("Registro exitoso. Redirigiendo al inicio de sesión...");
+        this.$router.push("/login");
+      } catch (error) {
+        alert("Error en el registro: " + (error.response ? error.response.data.message : error.message));
       }
     },
   },
