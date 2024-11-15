@@ -1,36 +1,3 @@
-<script>
-  export default {
-    name: "letter-list",
-    data() {
-      return {
-        letters: [
-          {
-            invoiceNumber: "2111222",
-            amount: "S/. 10.00",
-            interestRate: "30%",
-            issueDate: "10/09/2024",
-            dueDate: "23/09/2024",
-          },
-          {
-            invoiceNumber: "2111222",
-            amount: "S/. 10.00",
-            interestRate: "30%",
-            issueDate: "10/09/2024",
-            dueDate: "23/09/2024",
-          },
-          {
-            invoiceNumber: "2111222",
-            amount: "S/. 10.00",
-            interestRate: "30%",
-            issueDate: "10/09/2024",
-            dueDate: "23/09/2024",
-          },
-        ],
-      };
-    },
-  };
-</script>
-
 <template>
   <div class="container">
     <table class="letters-table">
@@ -61,46 +28,77 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "letter-list-component",
+  data() {
+    return {
+      letters: [
+        {
+          invoiceNumber: "2111222",
+          amount: "S/. 10.00",
+          interestRate: "30%",
+          issueDate: "10/09/2024",
+          dueDate: "23/09/2024",
+        },
+        {
+          invoiceNumber: "2111222",
+          amount: "S/. 10.00",
+          interestRate: "30%",
+          issueDate: "10/09/2024",
+          dueDate: "23/09/2024",
+        },
+        {
+          invoiceNumber: "2111222",
+          amount: "S/. 10.00",
+          interestRate: "30%",
+          issueDate: "10/09/2024",
+          dueDate: "23/09/2024",
+        },
+      ],
+    };
+  },
+};
+</script>
+
 <style scoped>
-  .container {
-    font-family: Arial, sans-serif;
-    margin: 0;
-  }
 
-  .header h1 {
-    margin: 0;
-  }
+.container {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
 
-  .letters-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
 
-  .letters-table th,
-  .letters-table td {
-    border: white;
-    padding: 12px;
-    text-align: center;
-  }
+.letters-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
 
-  .letters-table th {
-    background-color: #f4f4f4;
-  }
+.letters-table th,
+.letters-table td {
+  border: white;
+  padding: 12px;
+  text-align: center;
+}
 
-  .edit-button,
-  .delete-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-  }
+.letters-table th {
+  background-color: #f4f4f4;
+}
 
-  .edit-button {
-    color: #4a94a7;
-  }
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
 
-  .delete-button {
-    color: #cc0000;
-  }
+.edit-button {
+  color: #4a94a7;
+}
+
+.delete-button {
+  color: #cc0000;
+}
 </style>
