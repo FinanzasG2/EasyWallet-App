@@ -3,6 +3,7 @@ export default {
   name: "TableReportComponent",
   data() {
     return {
+      showReport: false,
       rows: [
         {
           factura: "2111222",
@@ -10,8 +11,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -19,8 +20,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -28,8 +29,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -37,8 +38,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -46,8 +47,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -55,8 +56,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -64,8 +65,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -73,8 +74,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -82,8 +83,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -91,8 +92,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -100,8 +101,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -109,8 +110,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -118,8 +119,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -127,8 +128,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -136,8 +137,8 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
         {
           factura: "2111222",
@@ -145,176 +146,112 @@ export default {
           interes: "30%",
           emision: "10/09/2024",
           vencimiento: "23/09/2024",
+          fechadescuento: "10/09/2024",
           tcea: "4%",
-          total: "S/. 2000.00"
         },
-        {
-          factura: "2111222",
-          monto: "S/. 10.00",
-          interes: "30%",
-          emision: "10/09/2024",
-          vencimiento: "23/09/2024",
-          tcea: "4%",
-          total: "S/. 2000.00"
-        },
-        {
-          factura: "2111222",
-          monto: "S/. 10.00",
-          interes: "30%",
-          emision: "10/09/2024",
-          vencimiento: "23/09/2024",
-          tcea: "4%",
-          total: "S/. 2000.00"
-        },
-        {
-          factura: "2111222",
-          monto: "S/. 10.00",
-          interes: "30%",
-          emision: "10/09/2024",
-          vencimiento: "23/09/2024",
-          tcea: "4%",
-          total: "S/. 2000.00"
-        },
-        {
-          factura: "2111222",
-          monto: "S/. 10.00",
-          interes: "30%",
-          emision: "10/09/2024",
-          vencimiento: "23/09/2024",
-          tcea: "4%",
-          total: "S/. 2000.00"
-        },
-        // Agrega más filas según sea necesario
+        // Agrega más filas aquí si es necesario para un total mayor a 10
       ],
-      tceaTotal: "-"
+      tceaTotal: "20%", // Ajusta según el cálculo deseado
+      montoTotal: "S/. 200.00", // Ajusta según el cálculo deseado
     };
   },
   methods: {
-    refreshData() {
-      alert("Datos actualizados");
-      // Aquí puedes actualizar los datos reales de la tabla en lugar de los datos de ejemplo
+    generarReporte() {
+      this.showReport = true;
     },
-    printRecord() {
-      alert("Imprimir función llamada");
-    },
-    shareRecord() {
-      alert("Compartir función llamada");
-    },
-    prevPage() {
-      alert("Página anterior");
-    },
-    nextPage() {
-      alert("Página siguiente");
-    },
-    calculateTCEA() {
-      this.tceaTotal = "20%"; // Ajusta esto según sea necesario
-    }
-  }
+  },
 };
 </script>
 
 <template>
   <main>
-    <div class="report-header">
+    <!-- Botón para generar reporte, siempre visible -->
+    <button @click="generarReporte" class="generate-report-button">
+      Generar Reporte
+    </button>
 
+    <!-- Card que contiene la tabla y los resultados, visible después de hacer clic en "Generar Reporte" -->
+    <div v-if="showReport" class="card-container">
+      <!-- Tabla de reportes -->
+      <div class="table-container">
+        <table>
+          <thead>
+          <tr>
+            <th>N° de Factura</th>
+            <th>Monto</th>
+            <th>TP (%)</th>
+            <th>Fecha de Emisión</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Fecha de Descuento</th>
+            <th>TCEA Calculado</th>
+            <th>Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(row, index) in rows.slice(0, 10)" :key="index">
+            <td>{{ row.factura }}</td>
+            <td>{{ row.monto }}</td>
+            <td>{{ row.interes }}</td>
+            <td>{{ row.emision }}</td>
+            <td>{{ row.vencimiento }}</td>
+            <td>{{ row.fechadescuento }}</td>
+            <td>{{ row.tcea }}</td>
+            <td>
+              <button @click="printRecord">🖨️</button>
+              <button @click="shareRecord">🔗</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-    </div>
-    <div class="table-container">
-      <table>
-        <thead>
-        <tr>
-          <th>N° de Factura</th>
-          <th>Monto en S/. o $</th>
-          <th>Tasa de Interés (%)</th>
-          <th>Fecha de Emisión</th>
-          <th>Fecha de Vencimiento</th>
-          <th>TCEA Calculado</th>
-          <th>Totales</th>
-          <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(row, index) in rows.slice(0, 10)" :key="index">
-          <td>{{ row.factura }}</td>
-          <td>{{ row.monto }}</td>
-          <td>{{ row.interes }}</td>
-          <td>{{ row.emision }}</td>
-          <td>{{ row.vencimiento }}</td>
-          <td>{{ row.tcea }}</td>
-          <td>{{ row.total }}</td>
-          <td>
-            <button @click="printRecord">🖨️</button>
-            <button @click="shareRecord">🔗</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="calculate-section">
-      <button id="calculate-button" @click="calculateTCEA">Calcular TCEA Total</button>
-      <span id="tcea-total" class="result-text">{{ tceaTotal }}</span>
-    </div>
-    <div class="total-section">
-      <span>Monto Total: <span id="total-amount">{{ tceaTotal }}</span></span>
+      <!-- Sección de resultados finales -->
+      <div class="total-section">
+        <span>TCEA Total: <span id="tcea-total">{{ tceaTotal }}</span></span>
+        <span class="monto-total">Monto Total: <span id="total-amount">{{ montoTotal }}</span></span>
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background-color: #f9f9f9; /* Fondo general claro */
-}
-
-main {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 40px auto;
-  background-color: #ffffff; /* Fondo blanco para el contenido */
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.report-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.report-header h2 {
-  font-size: 24px;
-  color: #3a3a3a; /* Título en color negro */
-}
-
-.refresh-button {
+/* Estilo para el botón "Generar Reporte" */
+.generate-report-button {
   font-size: 16px;
   background-color: #2d7e9f;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
-  display: flex;
-  align-items: center;
+  margin-bottom: 20px;
+  margin-left: 47%;
 }
 
+/* Contenedor tipo "card" ajustado para un ancho reducido y mayor sombra */
+.card-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.2); /* Sombra más prominente en la parte superior */
+  padding: 30px 20px; /* Aumenta el padding superior e inferior */
+  margin-top: 20px;
+  margin-bottom: 30px; /* Aumenta espacio en la parte inferior */
+  width: 80%; /* Reduce el ancho del contenedor */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Limitar altura del contenedor de la tabla para mostrar solo 10 filas y permitir desplazamiento vertical */
 .table-container {
-  max-height: 500px; /* Altura máxima de la tabla */
-  overflow-y: auto; /* Scroll vertical */
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
@@ -326,69 +263,29 @@ thead {
   text-align: left;
 }
 
-thead th {
-  padding: 12px;
-  text-align: left;
-  font-weight: bold;
-  color: #3a3a3a; /* Texto en negro en el encabezado */
-}
-
+thead th,
 tbody td {
   padding: 12px;
-  border-bottom: 1px solid #e0e0e0;
   text-align: left;
-  color: #3a3a3a; /* Texto en negro en las filas */
-}
-
-tbody tr {
-  background-color: #fff;
+  color: #3a3a3a;
 }
 
 tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-.pagination {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.pagination-button {
-  font-size: 18px;
-  margin: 5px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: #2d7e9f;
-}
-
-.calculate-section {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 20px;
-}
-
-#calculate-button {
-  background-color: #2d7e9f;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-  border-radius: 5px;
-}
-
-.result-text {
-  font-size: 16px;
-  color: #333; /* Color del resultado en negro */
-  margin-left: 10px;
-}
-
+/* Estilo para los resultados con TCEA a la izquierda y Monto a la derecha */
 .total-section {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
   font-size: 16px;
-  margin-top: 10px;
-  color: #333; /* Color del total en negro */
+  color: #333;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0; /* Línea superior para separar de la tabla */
+}
+
+.monto-total {
+  text-align: right;
+  font-weight: bold;
 }
 </style>

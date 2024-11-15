@@ -6,27 +6,7 @@ import router from './router'
 import PrimeVue from 'primevue/config';
 import {definePreset} from "@primevue/themes";
 import 'primeicons/primeicons.css';
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button'
-import Checkbox from "primevue/checkbox";
-import FileUpload from "primevue/fileupload";
-import Message from "primevue/message";
-import Card from "primevue/card";
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import Dialog from 'primevue/dialog';
-import Tag from 'primevue/tag';
-import RadioButton from "primevue/radiobutton";
-import Paginator from 'primevue/paginator';
-import Toolbar from "primevue/toolbar";
-import Avatar from "primevue/avatar";
-import Textarea from "primevue/textarea";
-import ProgressSpinner from "primevue/progressspinner";
-import Select from "primevue/select";
-import DatePicker from "primevue/datepicker";
-import {Toast, ToastService} from "primevue";
 
-import  'primeicons/primeicons.css';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button'
 import Checkbox from "primevue/checkbox";
