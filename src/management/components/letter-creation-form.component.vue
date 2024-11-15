@@ -1,242 +1,198 @@
-<script>
+<template>
+  <div class="card">
+    <h2 class="card-header">Registro de Letras</h2>
+    <div class="card-body">
+      <form @submit.prevent="submitForm">
+        <div class="form-group">
+          <label class=form-label for="factura">N° de Factura</label>
+          <input type="text" v-model="factura" id="factura" class="form-input" />
+        </div>
 
+        <div class="form-group">
+          <label class=form-label for="monto">Monto en Soles o Dólares</label>
+          <input type="text" v-model="monto" id="monto" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label class=form-label for="tipoTasa">Tipo de Tasa</label>
+          <select v-model="tipoTasa" @change="mostrarCapitalizacion" id="tipoTasa" class="form-input">
+            <option value="">Seleccione Tipo de Tasa</option>
+            <option value="nominal">Tasa Nominal</option>
+            <option value="efectiva">Tasa Efectiva</option>
+          </select>
+        </div>
+
+        <div v-if="tipoTasa === 'nominal'" class="form-group">
+          <label class=form-label for="capitalizacion">Capitalización</label>
+          <select v-model="capitalizacion" id="capitalizacion" class="form-input">
+            <option value="">Seleccione Capitalización</option>
+            <option value="diaria">Diaria</option>
+            <option value="mensual">Mensual</option>
+            <option value="anual">Anual</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class=form-label for="tasaInteres">Tasa de Interés (%)</label>
+          <input type="number" v-model="tasaInteres" id="tasaInteres" class="form-input" />
+        </div>
+
+        <button type="button" @click="toggleCostos" class="btn">
+          Agregar Costos Adicionales
+        </button>
+
+        <div v-if="mostrarCostos" class="costos-section">
+          <h3 class="costos-title">Detalles del Costo Adicional</h3>
+          <div class="form-group">
+            <label class=form-label for="tiempoCosto">Tiempo del Costo</label>
+            <input type="date" v-model="tiempoCosto" id="tiempoCosto" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label class=form-label for="descripcionCosto">Descripción del Costo</label>
+            <input type="text" v-model="descripcionCosto" id="descripcionCosto" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label class=form-label for="montoCosto">Monto del Costo</label>
+            <input type="number" v-model="montoCosto" id="montoCosto" class="form-input" />
+          </div>
+        </div>
+
+
+
+        <button type="submit" class="btn-primary">Registrar Letra</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
 export default {
-  name: "letter-creation-form",
   data() {
     return {
-      form: {
-        factura: '',
-        monto: '',
-        tipoTasa: '',
-        tasaInteres: '',
-        capitalizacion: '',
-        fechaEmision: '',
-        fechaVencimiento: '',
-        fechaDescuento: '',
-        observaciones: '',
-        costosAdicionales: [
-          { descripcion: '', monto: '', tiempo: 'INICIO' },
-        ],
-      },
-      mostrarCostosAdicionales: false,
+      factura: '',
+      monto: '',
+      tipoTasa: '',
+      capitalizacion: '',
+      tasaInteres: '',
+      mostrarCostos: false,
+      tiempoCosto: '',
+      descripcionCosto: '',
+      montoCosto: '',
+
     };
   },
   methods: {
-    handleTasaChange() {
-      if (this.form.tipoTasa === 'Tasa Efectiva') {
-        this.form.capitalizacion = '';
+    toggleCostos() {
+      this.mostrarCostos = !this.mostrarCostos;
+    },
+    mostrarCapitalizacion() {
+      if (this.tipoTasa !== 'nominal') {
+        this.capitalizacion = '';
       }
     },
-    toggleCostosAdicionales() {
-      this.mostrarCostosAdicionales = !this.mostrarCostosAdicionales;
+    submitForm() {
+      alert('Formulario enviado');
     },
-
   },
 };
 </script>
 
-<template>
-  <form @submit.prevent="submitForm">
-    <!-- Grupo de N° de Factura y Monto -->
-    <div class="form-group">
-      <input type="text" placeholder="N° de Factura" v-model="form.factura" />
-      <input type="text" placeholder="Monto en Soles o Dólares" v-model="form.monto" />
-    </div>
-
-    <!-- Grupo de Tipo de Tasa y Tasa de Interés -->
-    <div class="form-group">
-      <select v-model="form.tipoTasa" @change="handleTasaChange">
-        <option disabled value="">Tipo de Tasa</option>
-        <option>Tasa Efectiva</option>
-        <option>Tasa Nominal</option>
-      </select>
-      <input
-          type="text"
-          placeholder="Tasa de Interés (%)"
-          v-model="form.tasaInteres"
-          :readonly="form.tipoTasa === 'Tasa Efectiva'"
-      />
-    </div>
-
-    <!-- Grupo de Capitalización y Botón de Costos Adicionales -->
-    <div class="form-group align-items">
-      <div v-if="form.tipoTasa === 'Tasa Nominal'" class="capitalizacion-container">
-        <select v-model="form.capitalizacion">
-          <option disabled value="">Seleccione Capitalización</option>
-          <option value="diaria">Diaria</option>
-          <option value="semestral">Semestral</option>
-          <option value="anual">Anual</option>
-        </select>
-      </div>
-      <button type="button" class="btn_costos_adicionales" @click="toggleCostosAdicionales">
-        Agregar Costos Adicionales
-      </button>
-    </div>
-
-    <!-- Campos adicionales para agregar costos -->
-    <div v-if="mostrarCostosAdicionales" class="form-group form-costos">
-      <div class="form-field">
-        <label for="tiempo-costo">Tiempo del Costo</label>
-        <select id="1" v-model="form.costosAdicionales[0].tiempo">
-          <option disabled value="">Seleccione Tiempo del Costo</option> <!-- Usar una cadena vacía -->
-          <option value="Al Inicio">Al Inicio</option>
-          <option value="Al Vencimiento">Al Vencimiento</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label for="descripcion-costo">Descripción del Costo</label>
-        <input
-            type="text"
-            id="descripcion-costo"
-            placeholder="Descripción"
-            v-model="form.costosAdicionales[0].descripcion"
-        />
-      </div>
-      <div class="form-field">
-        <label for="monto-costo">Monto del Costo</label>
-        <input
-            type="text"
-            id="monto-costo"
-            placeholder="Monto"
-            v-model="form.costosAdicionales[0].monto"
-        />
-      </div>
-    </div>
-
-    <!-- Grupo de Fechas -->
-    <div class="form-group">
-      <input type="date" placeholder="Fecha de Emisión" v-model="form.fechaEmision" />
-      <input type="date" placeholder="Fecha de Vencimiento" v-model="form.fechaVencimiento" />
-      <input type="date" placeholder="Fecha de Descuento" v-model="form.fechaDescuento" />
-    </div>
-
-    <!-- Observaciones -->
-    <textarea placeholder="Observaciones adicionales" v-model="form.observaciones"></textarea>
-
-    <!-- Botón de Envío -->
-    <button type="submit" class="submit-button">Registrar Letra</button>
-  </form>
-
-
-</template>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+<style scoped>
+/* Estilos generales de la tarjeta */
+.card {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
 }
 
-body {
-  font-family: Arial, sans-serif;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #39869E;
-  padding: 10px 20px;
-  color: #fff;
-}
-
-
-
-nav {
-  display: flex;
-  gap: 10px;
-}
-
-
-main {
-  padding: 40px;
+/* Encabezado de la tarjeta */
+.card-header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d7e9f;
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-h1 {
-  color: #39869E;
-}
-
-
-
-.form-group {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-input, select, textarea {
-  width: 48%;
-  padding: 10px;
-  border: 1px solid #39869E;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-textarea {
-  width: 100%;
-  height: 100px;
-}
-
-.submit-button {
-  background-color: #39869E;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.submit-button:hover {
-  background-color: #317c8b;
-}
-
-.btn_costos_adicionales {
-  background-color: #39869E;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn_costos_adicionales:hover {
-  background-color: #317c8b;
-}
-
-/* Ajusta la distribución de los campos de Costos Adicionales */
-.form-costos {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px; /* Espacio entre los campos */
-  margin-bottom: 20px;
-  flex-wrap: nowrap; /* Evita que los elementos se vayan a la siguiente línea */
-}
-
-.form-field {
+/* Cuerpo de la tarjeta */
+.card-body {
   display: flex;
   flex-direction: column;
-  width: 32%; /* Ajusta el ancho de cada campo para que ocupen la misma fila */
-  margin-bottom: 0; /* Evita espacio adicional debajo de los campos */
+  gap: 1.2rem;
 }
 
-.form-field select,
-.form-field input {
+/* Estilos de los campos de formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.4rem;
+}
+
+.form-input {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+/* Botones */
+.btn,
+.btn-primary {
+  padding: 0.8rem 1.2rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn {
+  background-color: #2d7e9f;
+  color: #ffffff;
+  border: none;
+  margin-top: 1rem;
+}
+
+.btn:hover {
+  background-color: #236581;
+}
+
+.btn-primary {
+  background-color: #2d7e9f;
+  color: #ffffff;
+  border: none;
   width: 100%;
+  margin-top: 1.5rem;
 }
 
-/* Ajuste del select de Capitalización */
-.capitalizacion-container select {
-  width: 100%; /* Ocupa todo el ancho disponible */
-  margin-right: 10px;
+.btn-primary:hover {
+  background-color: #236581;
 }
 
-/* Alinea los campos debajo de los títulos */
-.form-costos label {
-  text-align: left;
-  margin-bottom: 5px;
+/* Sección de costos adicionales */
+.costos-section {
+  padding: 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f0f8fa;
+  margin-top: 1.2rem;
+}
+
+.costos-title {
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 1rem;
 }
 </style>
