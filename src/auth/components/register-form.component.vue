@@ -12,8 +12,8 @@
           />
           <input
               type="text"
-              v-model="lastName"
-              placeholder="Apellido"
+              v-model="username"
+              placeholder="Usuario"
               class="form-input"
           />
         </div>
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       firstName: '',
-      lastName: '',
+      username: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -90,7 +90,7 @@ export default {
     isFormValid() {
       return (
           this.firstName &&
-          this.lastName &&
+          this.username &&
           this.isValidEmail &&
           this.isValidPassword &&
           this.password === this.confirmPassword

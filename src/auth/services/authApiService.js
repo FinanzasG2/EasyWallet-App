@@ -1,13 +1,15 @@
 import axios from 'axios';
+import {authBaseUrl} from "@/apiConfig.js";
+const http=axios.create({baseURL:authBaseUrl});
 
-const API_URL = 'http://localhost:8080/api/v1/auth/';
+
 
 export class AuthApiService {
 
     // Función de inicio de sesión
     async login(email, password) {
         try {
-            const response = await axios.post(API_URL + 'login', {
+            const response = await http.post( 'login', {
                 email,
                 password,
             });
@@ -25,13 +27,13 @@ export class AuthApiService {
     }
 
     // Función de registro
-    async register(firstName, lastName, email, password) {
+    async register(firstName, username, email, password) {
         try {
             const response = await axios.post(API_URL + 'register', {
-                firstName,
-                lastName,
-                email,
-                password,
+                firstName:firstName,
+                username: username,
+                email : email,
+                password: password,
             });
 
             return response.data;
