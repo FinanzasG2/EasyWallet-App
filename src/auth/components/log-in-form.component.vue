@@ -5,9 +5,9 @@
       <form @submit.prevent="submitForm">
         <div class="form-group">
           <input
-              type="text"
-              v-model="username"
-              placeholder="Usuario o correo electrónico"
+              type="email"
+              v-model="email"
+              placeholder="Correo electrónico"
               class="form-input"
           />
         </div>
@@ -31,16 +31,32 @@
 </template>
 
 <script>
+import authApiService from "@/auth/services/authApiService.js";
+
 export default {
   data() {
     return {
-      username: '',
+      email: '', // Cambiado de "username" a "email" para consistencia
       password: '',
     };
   },
   methods: {
+    // Función que se activa al enviar el formulario
     submitForm() {
-      alert('Formulario enviado');
+      this.login(); // Llama a la función de login cuando el formulario se envía
+    },
+
+    // Función de login
+    async login() {
+      try {
+        const response = await authApiService.login(this.email, this.password);
+        if (response.token) {
+          this.$router.push("/register-letter"); // Redirige a la página "/register-letter" tras el login exitoso
+        }
+      } catch (error) {
+        console.error("Error en login:", error);
+        // Aquí puedes manejar el error, como mostrar un mensaje al usuario
+      }
     },
   },
 };
