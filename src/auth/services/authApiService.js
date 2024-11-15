@@ -27,13 +27,17 @@ export class AuthApiService {
     }
 
     // Función de registro
-    async register(firstName, username, email, password) {
+    async register(name, username, email, password) {
         try {
-            const response = await axios.post(API_URL + 'register', {
-                firstName:firstName,
-                username: username,
-                email : email,
-                password: password,
+            const response = await http.post( 'register', {
+                name,
+                username,
+                email,
+                password,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             return response.data;
