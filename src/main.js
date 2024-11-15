@@ -5,8 +5,8 @@ import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config';
 import {definePreset} from "@primevue/themes";
+import 'primeicons/primeicons.css';
 
-import  'primeicons/primeicons.css';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button'
 import Checkbox from "primevue/checkbox";
