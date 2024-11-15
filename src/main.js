@@ -1,6 +1,7 @@
 import './assets/main.css'
 import Lara from '@primevue/themes/lara';
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config';
@@ -88,4 +89,5 @@ createApp(App)
     .component('pv-radiobutton', RadioButton)
     .component('pv-paginator', Paginator)
     .component('pv-spinner', ProgressSpinner)
+    .use(createPinia())
     .mount('#app')
