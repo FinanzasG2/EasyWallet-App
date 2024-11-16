@@ -8,8 +8,8 @@ export default {
     return {
       showReport: false, // Se inicializa como falso para ocultar el reporte
       rows: [], // Datos de las letras, inicializado como vacío
-      tceaTotal: "", // Dato dinámico
-      montoTotal: "", // Dato dinámico
+      tceaTotal: "N/A", // Dato dinámico
+      montoTotal: "N/A", // Dato dinámico
       fechaReporte: "N/A", // Nueva variable para la fecha del reporte
     };
   },
@@ -32,6 +32,20 @@ export default {
         }
 
         const letters = await ReportService.getByUserId(userId);
+
+
+        // Primero realizar el POST para crear el reporte
+        await ReportService.createReportByUserId(userId);
+
+        // Luego realizar el GET para obtener el reporte generado
+        const report = await ReportService.getReportByUserId(userId);
+
+        // Mostrar los detalles del reporte en la interfaz
+        this.fechaReporte = report.fechaReporte;
+        this.montoTotal = report.totalLetras ? Number(report.totalLetras).toFixed(2) : "0.00";
+        this.tceaTotal = report.tceaTotal ? Number(report.tceaTotal).toFixed(2) + "%" : "0%";
+
+
 
         // Mapear las letras y obtener el TCEA
         this.rows = await Promise.all(
@@ -105,7 +119,7 @@ export default {
             <th>Fecha de Vencimiento</th>
             <th>Fecha de Descuento</th>
             <th>TCEA Calculado</th>
-            <th>Acciones</th>
+
           </tr>
           </thead>
           <tbody>
@@ -117,10 +131,7 @@ export default {
             <td>{{ row.vencimiento }}</td>
             <td>{{ row.fechadescuento }}</td>
             <td>{{ row.tcea }}</td>
-            <td>
-              <button @click="printRecord">🖨️</button>
-              <button @click="shareRecord">🔗</button>
-            </td>
+
           </tr>
           </tbody>
         </table>
@@ -129,7 +140,7 @@ export default {
       <!-- Sección de resultados finales -->
       <div class="total-section">
         <span>TCEA Total: <span id="tcea-total">{{ tceaTotal }}</span></span>
-        <span class="monto-total">Monto Total: <span id="total-amount">{{ montoTotal }}</span></span>
+        <span class="monto-total">Cantidad de Letras: <span id="total-amount">{{ montoTotal }}</span></span>
         <span>Fecha Reporte: <span id="fecha-reporte">{{ fechaReporte }}</span></span>
       </div>
     </div>

@@ -66,6 +66,40 @@ export class ReportService {
             });
     }
 
+    createReportByUserId(userId) {
+        return reportHttp.post(`/usuario/${userId}`)
+            .then(response => response.data)
+            .catch(error => {
+                let errorMessage = 'Error al crear el reporte';
+                if (error.response) {
+                    errorMessage += `: ${error.response.status} - ${error.response.data.message || error.response.statusText}`;
+                } else if (error.request) {
+                    errorMessage += ': No se recibió respuesta del servidor';
+                } else {
+                    errorMessage += `: ${error.message}`;
+                }
+                throw new Error(errorMessage);
+            });
+    }
+
+    getReportByUserId(userId) {
+        return reportHttp.get(`/usuario/${userId}`)
+            .then(response => response.data)
+            .catch(error => {
+                let errorMessage = 'Error al obtener el reporte';
+                if (error.response) {
+                    errorMessage += `: ${error.response.status} - ${error.response.data.message || error.response.statusText}`;
+                } else if (error.request) {
+                    errorMessage += ': No se recibió respuesta del servidor';
+                } else {
+                    errorMessage += `: ${error.message}`;
+                }
+                throw new Error(errorMessage);
+            });
+    }
+
+
+
 }
 
 export default new ReportService();
