@@ -11,8 +11,8 @@
           <label class=form-label for="tipo-moneda">Tipo de Moneda</label>
           <select v-model="tipoMoneda" id="tipo-moneda" class="form-input">
             <option value="">Seleccione Tipo de Moneda</option>
-            <option value="Soles">Soles</option>
-            <option value="Dolares">Dolares</option>
+            <option value="S/.">Soles</option>
+            <option value="$">Dolares</option>
           </select>
           <br/>
           <label class=form-label for="monto">Monto</label>
@@ -29,36 +29,36 @@
           <label class=form-label for="tipoTasa">Tipo de Tasa</label>
           <select v-model="tipoTasa" @change="mostrarCapitalizacion" id="tipoTasa" class="form-input">
             <option value="">Seleccione Tipo de Tasa</option>
-            <option value="nominal">Tasa Nominal</option>
-            <option value="efectiva">Tasa Efectiva</option>
+            <option value="NOMINAL">Tasa Nominal</option>
+            <option value="EFECTIVA">Tasa Efectiva</option>
           </select>
         </div>
         <div  class="form-group">
           <label class=form-label for="tiempo-tasa">Tiempo Tasa</label>
           <select v-model="tiempotasa" id="selector-tiempo-tasa" class="form-input">
             <option value="">Seleccione Tiempo de Tasa</option>
-            <option value="diaria">Diaria</option>
-            <option value="quincenal">Quincenal</option>
-            <option value="mensual">Mensual</option>
-            <option value="bimestral">Bimestral</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="cuatrimestral">Cuatrimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
+            <option value="DIARIA">Diaria</option>
+            <option value="QUINCENAL">Quincenal</option>
+            <option value="MENSUAL">Mensual</option>
+            <option value="BIMESTRAL">Bimestral</option>
+            <option value="TRIMESTRAL">Trimestral</option>
+            <option value="CUATRIMESTRAL">Cuatrimestral</option>
+            <option value="SEMESTRAL">Semestral</option>
+            <option value="ANUAL">Anual</option>
           </select>
         </div>
-        <div v-if="tipoTasa === 'nominal'" class="form-group">
+        <div v-if="tipoTasa === 'NOMINAL'" class="form-group">
           <label class=form-label for="capitalizacion">Capitalización</label>
           <select v-model="capitalizacion" id="capitalizacion" class="form-input">
             <option value="">Seleccione Capitalización</option>
-            <option value="diaria">Diaria</option>
-            <option value="quincenal">Quincenal</option>
-            <option value="mensual">Mensual</option>
-            <option value="bimestral">Bimestral</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="cuatrimestral">Cuatrimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
+            <option value="DIARIA">Diaria</option>
+            <option value="QUINCENAL">Quincenal</option>
+            <option value="MENSUAL">Mensual</option>
+            <option value="BIMESTRAL">Bimestral</option>
+            <option value="TRIMESTRAL">Trimestral</option>
+            <option value="CUATRIMESTRAL">Cuatrimestral</option>
+            <option value="SEMESTRAL">Semestral</option>
+            <option value="ANUAL">Anual</option>
           </select>
         </div>
         <div class="form-group">
@@ -72,7 +72,12 @@
           <h3 class="costos-title">Detalles del Costo Adicional</h3>
           <div class="form-group">
             <label class=form-label for="tiempoCosto">Tiempo del Costo</label>
-            <input type="date" v-model="tiempoCosto" id="tiempoCosto" class="form-input" />
+            <select v-model="tiempoCosto" id="selector-tiempo-costo" class="form-input">
+              <option value="">Seleccione Tiempo del Costo</option>
+              <option value="INICIO">Inicio</option>
+              <option value="VENCIMIENTO">Vencimiento</option>
+
+            </select>
           </div>
           <div class="form-group">
             <label class=form-label for="descripcionCosto">Descripción del Costo</label>
@@ -90,6 +95,9 @@
 </template>
 
 <script>
+import LetterService from "@/management/services/letter.service.js";
+import { jwtDecode } from "jwt-decode";
+
 export default {
   data() {
     return {
@@ -106,30 +114,55 @@ export default {
       tiempoCosto: '',
       descripcionCosto: '',
       montoCosto: '',
+      usuarioId: null, // Aquí almacenaremos el ID del usuario
     };
+  },
+  created() {
+    this.loadUserId();
   },
   methods: {
     toggleCostos() {
       this.mostrarCostos = !this.mostrarCostos;
     },
     mostrarCapitalizacion() {
-      if (this.tipoTasa !== 'nominal') {
+      if (this.tipoTasa !== 'NOMINAL') {
         this.capitalizacion = '';
       }
     },
+    loadUserId() {
+      const token = localStorage.getItem("user"); // Cambia "user" por la clave correcta en localStorage
+      if (token) {
+        try {
+          const decodedToken = jwtDecode(token);
+          this.usuarioId = parseInt(decodedToken.sub, 10); // Decodificar y convertir a número
+          if (isNaN(this.usuarioId)) {
+            throw new Error("El ID del usuario no es un número válido.");
+          }
+        } catch (error) {
+          console.error("Error al decodificar el token:", error);
+          alert("Sesión inválida. Por favor, vuelve a iniciar sesión.");
+        }
+      } else {
+        alert("No se encontró el token. Por favor, inicia sesión.");
+      }
+    },
+    formatDateToISOString(date) {
+      const formattedDate = new Date(date).toISOString();
+      return formattedDate.slice(0, -5) + "Z"; // Remueve los milisegundos y conserva el formato esperado
+    },
     async submitForm() {
-      // Obtener la fecha actual en formato ISO para `fechaRegistro`
-      const fechaRegistro = new Date().toISOString();
-
-      // Preparar los datos de la solicitud
+      const fechaRegistro = this.formatDateToISOString(new Date()); // Formatear fecha actual
       const requestData = {
-        usuarioId: parseInt(this.factura, 10), // Usa el valor de `factura` como `usuarioId`
+        usuarioId: this.usuarioId,
+        letterNumber: this.factura,
         valorNominal: parseFloat(this.monto),
-        fechaRegistro: fechaRegistro,
-        fechaVencimiento: new Date(this.fecha_vencimiento).toISOString(),
-        fechaDescuento: new Date(this.fecha_descuento).toISOString(),
+        fechaRegistro,
+        fechaVencimiento: this.formatDateToISOString(this.fecha_vencimiento), // Formatear fecha de vencimiento
+        fechaDescuento: this.formatDateToISOString(this.fecha_descuento), // Formatear fecha de descuento
+        currency: this.tipoMoneda,
         valorTasa: parseFloat(this.tasaInteres),
         tipoTasa: this.tipoTasa.toUpperCase(),
+        frecuenciaTasa: this.tiempotasa.toUpperCase(),
         capitalizacionTasa: this.capitalizacion.toUpperCase(),
         costosAdicionales: this.mostrarCostos
             ? [
@@ -142,24 +175,21 @@ export default {
             : [],
       };
 
+      console.log('Datos del formulario:', requestData);
+
       try {
-        // Enviar la solicitud POST a la API en el endpoint `/api/letras`
-        const response = await axios.post('/api/letras', requestData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        alert('Registro de letra exitoso');
-        console.log(response.data);
+        const response = await LetterService.registerLetter(requestData);
+        alert("Registro de letra exitoso");
+        console.log("Respuesta del servidor:", response);
       } catch (error) {
-        console.error('Error al registrar la letra:', error);
-        alert('Error al registrar la letra');
+        console.error("Error al registrar la letra:", error.message);
+        alert("Error al registrar la letra: " + error.message);
       }
     },
   },
 };
-
 </script>
+
 
 <style scoped>
 /* Estilos generales de la tarjeta */

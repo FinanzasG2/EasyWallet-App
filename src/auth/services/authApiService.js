@@ -17,7 +17,10 @@ export class AuthApiService {
             // Si el login es exitoso, almacenamos el token en localStorage
             if (response.data.token) {
                 localStorage.setItem('user', JSON.stringify(response.data));
+                console.log("Token de autenticación almacenado:", response.data.token);
             }
+
+
 
             return response.data;
         } catch (error) {

@@ -3,27 +3,22 @@
     <table class="letters-table">
       <thead>
       <tr>
-        <th>N° de Factura</th>
-        <th>Monto</th>
-        <th>Tasa del Periodo (%)</th>
-        <th>Fecha de Emisión</th>
+        <th>N° de Letra</th>
+        <th>Valor Nominal</th>
+        <th>Tasa (%)</th>
+        <th>Fecha de Registro</th>
         <th>Fecha de Vencimiento</th>
         <th>Fecha de Descuento</th>
-        <th>Acciones</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="(letter, index) in letters" :key="index">
-        <td>{{ letter.invoiceNumber }}</td>
-        <td>{{ letter.amount }}</td>
-        <td>{{ letter.interestRate }}</td>
-        <td>{{ letter.issueDate }}</td>
-        <td>{{ letter.dueDate }}</td>
-        <td>{{ letter.discountDate }}</td>
-        <td>
-          <button class="edit-button">&#9998;</button>
-          <button class="delete-button">&#128465;</button>
-        </td>
+        <td>{{ letter.letterNumber }}</td>
+        <td>{{ letter.valorNominal }}</td>
+        <td>{{ letter.tasa.valor }}</td>
+        <td>{{ formatDate(letter.fechaRegistro) }}</td>
+        <td>{{ formatDate(letter.fechaVencimiento) }}</td>
+        <td>{{ formatDate(letter.fechaDescuento) }}</td>
       </tr>
       </tbody>
     </table>
@@ -31,94 +26,50 @@
 </template>
 
 <script>
+import LetterService from "@/management/services/letter.service";
+import {jwtDecode} from "jwt-decode";
+
 export default {
   name: "letter-list-component",
   data() {
     return {
-      letters: [
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-        {
-          invoiceNumber: "2111222",
-          amount: "S/. 10.00",
-          interestRate: "30%",
-          issueDate: "10/09/2024",
-          dueDate: "23/09/2024",
-          discountDate:"14/09/2024"
-        },
-
-      ],
+      letters: [], // Lista de letras
     };
+  },
+  created() {
+    this.fetchLetters();
+  },
+  methods: {
+    async fetchLetters() {
+      try {
+        const token = localStorage.getItem("user");
+        if (token) {
+          try {
+            const decodedToken = jwtDecode(token);
+            const userId = parseInt(decodedToken.sub, 10); // Decodificar y convertir a número
+            if (isNaN(userId)) {
+              throw new Error("El ID del usuario no es un número válido.");
+            }
+            // Llamar al servicio para obtener las letras por userId
+            this.letters = await LetterService.getByUserId(userId);
+          } catch (error) {
+            console.error("Error al decodificar el token:", error);
+            alert("Sesión inválida. Por favor, vuelve a iniciar sesión.");
+          }
+        } else {
+          alert("No se encontró el token. Por favor, inicia sesión.");
+        }
+
+      } catch (error) {
+        console.error("Error al obtener las letras:", error.message);
+        alert("Error al cargar las letras: " + error.message);
+      }
+    },
+    formatDate(dateString) {
+      // Dar formato a las fechas (opcional)
+      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+      return new Date(dateString).toLocaleDateString("es-PE", options);
+    },
   },
 };
 </script>
