@@ -51,17 +51,27 @@ export default {
         this.rows = await Promise.all(
             letters.map(async (letter) => {
               let tcea = "Calculando...";
+              let valorEntregado = "Calculando...";
+              let valorRecibido = "Calculando...";
               try {
                 const tceaResponse = await ReportService.getTceaById(letter.id);
                 tcea = tceaResponse.tcea
                     ? `${Number(tceaResponse.tcea).toFixed(2)}%`
                     : "0%";
+                valorEntregado = tceaResponse.valorEntregado
+                    ? `${letter.currency} ${Number(tceaResponse.valorEntregado).toFixed(2)}`
+                    : `${letter.currency} 0.00`;
+                valorRecibido = tceaResponse.valorRecibido
+                    ? `${letter.currency} ${Number(tceaResponse.valorRecibido).toFixed(2)}`
+                    : `${letter.currency} 0.00`;
               } catch (error) {
                 console.error(
                     `Error al obtener el TCEA para la letra con ID ${letter.id}:`,
                     error.message
                 );
                 tcea = "Error al calcular";
+                valorEntregado = "Error al calcular";
+                valorRecibido = "Error al calcular";
               }
 
               return {
@@ -82,6 +92,8 @@ export default {
                 fechadescuento: letter.fechaDescuento
                     ? new Date(letter.fechaDescuento).toLocaleDateString("es-PE")
                     : "N/A",
+                valorEntregado, // Asignar Valor Entregado
+                valorRecibido, // Asignar Valor Recibido
                 tcea, // Asignar el TCEA obtenido
               };
             })
@@ -114,11 +126,13 @@ export default {
           <tr>
             <th>N° de Factura</th>
             <th>Monto</th>
-            <th>TP (%)</th>
             <th>Fecha de Emisión</th>
-            <th>Fecha de Vencimiento</th>
+            <th>TEA (%)</th>
             <th>Fecha de Descuento</th>
+            <th>Valor Entregado</th>
+            <th>Valor Recibido</th>
             <th>TCEA Calculado</th>
+
 
           </tr>
           </thead>
@@ -126,11 +140,13 @@ export default {
           <tr v-for="(row, index) in rows.slice(0, 10)" :key="index">
             <td>{{ row.factura }}</td>
             <td>{{ row.monto }}</td>
-            <td>{{ row.interes }}</td>
             <td>{{ row.emision }}</td>
-            <td>{{ row.vencimiento }}</td>
+            <td>{{ row.interes }}</td>
             <td>{{ row.fechadescuento }}</td>
+            <td>{{ row.valorEntregado }}</td>
+            <td>{{ row.valorRecibido }}</td>
             <td>{{ row.tcea }}</td>
+
 
           </tr>
           </tbody>
