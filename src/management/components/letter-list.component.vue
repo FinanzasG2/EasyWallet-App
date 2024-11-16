@@ -9,6 +9,7 @@
         <th>Fecha de Registro</th>
         <th>Fecha de Vencimiento</th>
         <th>Fecha de Descuento</th>
+        <th>Acciones</th>
       </tr>
       </thead>
       <tbody>
@@ -19,6 +20,9 @@
         <td>{{ formatDate(letter.fechaRegistro) }}</td>
         <td>{{ formatDate(letter.fechaVencimiento) }}</td>
         <td>{{ formatDate(letter.fechaDescuento) }}</td>
+        <td>
+          <button class ="delete-button" @click="deleteLetter(parseInt(letter.id,10))">Eliminar</button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -67,9 +71,23 @@ export default {
     },
     formatDate(dateString) {
       // Dar formato a las fechas (opcional)
-      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+      const options = {year: "numeric", month: "2-digit", day: "2-digit"};
       return new Date(dateString).toLocaleDateString("es-PE", options);
     },
+    async deleteLetter(letterId) {
+      console.log("Intentando eliminar la letra con ID:", letterId);
+      const confirmDelete = confirm("¿Estás seguro de que deseas eliminar esta letra?");
+      if (confirmDelete) {
+        try {
+          await LetterService.deleteLetter(letterId);
+          this.letters = this.letters.filter(letter => letter.id !== letterId);
+          alert("Letra eliminada con éxito.");
+        } catch (error) {
+          console.error("Error al eliminar la letra:", error.message);
+          alert("No se pudo eliminar la letra: " + error.message);
+        }
+      }
+    }
   },
 };
 </script>
@@ -110,7 +128,6 @@ tbody tr:hover {
   background-color: #e0e0e0;
 }
 
-.edit-button,
 .delete-button {
   background: none;
   border: none;
@@ -118,9 +135,7 @@ tbody tr:hover {
   font-size: 18px;
 }
 
-.edit-button {
-  color: #4a94a7;
-}
+
 
 .delete-button {
   color: #cc0000;

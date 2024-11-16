@@ -44,6 +44,30 @@ export class LetterService {
                 throw new Error(errorMessage);
             });
     }
+    deleteLetter(letterId) {
+        console.log("URL final utilizada:", http.defaults.baseURL);
+        return http.delete(`/${letterId}`) // Usar comillas inversas para URLs dinámicas
+            .then((response) => {
+                if (response.status === 200 || response.status === 204) {
+                    return true;
+                }
+                throw new Error(`Error inesperado: ${response.status} - ${response.statusText}`);
+            })
+            .catch((error) => {
+                let errorMessage = 'Error al eliminar la letra';
+                if (error.response) {
+                    errorMessage += `: ${error.response.status} - ${error.response.data.message || error.response.statusText}`;
+                } else if (error.request) {
+                    errorMessage += ': No se recibió respuesta del servidor.';
+                } else {
+                    errorMessage += `: ${error.message}`;
+                }
+                console.error(errorMessage);
+                throw new Error(errorMessage);
+            });
+    }
+
+
 
 }
 
