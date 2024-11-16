@@ -24,6 +24,7 @@
           <br/>
           <label class=form-label for="fecha_descuento">Fecha de Descuento</label>
           <input type="date" v-model="fecha_descuento" id="fecha_descuento" class="form-input" />
+          <div v-if="fechaError" class="error-message">La fecha de descuento no puede ser mayor a la fecha de vencimiento.</div>
         </div>
         <div class="form-group">
           <label class=form-label for="tipoTasa">Tipo de Tasa</label>
