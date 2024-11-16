@@ -1,88 +1,83 @@
 <script>
-import { ReportService } from "@/report/services/report.service.js";
-import {jwtDecode} from "jwt-decode";
+import ReportService from "@/report/services/report.service.js";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   name: "TableReportComponent",
   data() {
     return {
-      showReport: false,
+      showReport: false, // Se inicializa como falso para ocultar el reporte
       rows: [], // Datos de las letras, inicializado como vacío
       tceaTotal: "", // Dato dinámico
       montoTotal: "", // Dato dinámico
       fechaReporte: "N/A", // Nueva variable para la fecha del reporte
     };
   },
-  created() {
-    this.fetchLetters(); // Carga las letras al iniciar el componente
-    this.generarReporte();
-
-  },
   methods: {
     async fetchLetters() {
-      const token = localStorage.getItem("user");
-
-      if (token) {
-        try {
-          const decodedToken = jwtDecode(token);
-          const userId = parseInt(decodedToken.sub, 10); // Decodificar y convertir a número
-          if (isNaN(userId)) {
-            throw new Error("El ID del usuario no es un número válido.");
-          }
-          const letters = await reportService.getByUserId(userId);
-
-          // Mapear los datos para llenar la tabla
-          this.rows = letters.map(letter => ({
-            id: letter.id, // Necesitamos el ID para luego obtener el TCEA
-            factura: letter.letterNumber || "N/A",
-            monto: letter.valorNominal ? `${letter.currency} ${Number(letter.valorNominal).toFixed(2)}` : `${letter.currency} 0.00`,
-            interes: letter.tasa?.valor ? `${Number(letter.tasa.valor).toFixed(2)}%` : "0%",
-            emision: letter.fechaRegistro ? new Date(letter.fechaRegistro).toLocaleDateString("es-PE") : "N/A",
-            vencimiento: letter.fechaVencimiento ? new Date(letter.fechaVencimiento).toLocaleDateString("es-PE") : "N/A",
-            fechadescuento: letter.fechaDescuento ? new Date(letter.fechaDescuento).toLocaleDateString("es-PE") : "N/A",
-            tcea: "Calculando...", // Placeholder mientras se obtiene el valor
-          }));
-          // Llamar al servicio para obtener las letras por userId
-
-        } catch (error) {
-          console.error("Error al decodificar el token:", error);
-          alert("Sesión inválida. Por favor, vuelve a iniciar sesión.");
-        }
-      } else {
-        alert("No se encontró el token. Por favor, inicia sesión.");
-      }
-
-
-      const reportService = new ReportService();
-
-
       try {
-        // Obtener letras del usuario
+        // Ocultar el reporte mientras se cargan los datos
+        this.showReport = false;
 
-      } catch (error) {
-        console.error("Error al obtener las letras:", error.message);
-        alert("Error al cargar las letras: " + error.message);
-      }
-    },
-    async generarReporte() {
-      // Mostrar la tarjeta del reporte
-      this.showReport = true;
-
-      // Llamamos al servicio para obtener el TCEA para cada letra
-      const reportService = new ReportService();
-
-      // Iterar sobre cada letra y obtener su TCEA
-      for (let i = 0; i < this.rows.length; i++) {
-        const letra = this.rows[i];
-        try {
-          const tceaResponse = await reportService.getTceaById(letra.id);
-          // Asumiendo que la respuesta tiene un campo 'tcea', lo asignamos a la fila correspondiente
-          this.rows[i].tcea = tceaResponse.tcea ? `${Number(tceaResponse.tcea).toFixed(2)}%` : "0%";
-        } catch (error) {
-          console.error(`Error al obtener el TCEA para la letra con ID ${letra.id}:`, error.message);
-          // Mostrar mensaje de error en la columna TCEA correspondiente
-          this.rows[i].tcea = "Error al calcular";
+        const token = localStorage.getItem("user");
+        if (!token) {
+          alert("No se encontró el token. Por favor, inicia sesión.");
+          return;
         }
+
+        const decodedToken = jwtDecode(token);
+        const userId = parseInt(decodedToken.sub, 10); // Decodificar y convertir a número
+        if (isNaN(userId)) {
+          throw new Error("El ID del usuario no es un número válido.");
+        }
+
+        const letters = await ReportService.getByUserId(userId);
+
+        // Mapear las letras y obtener el TCEA
+        this.rows = await Promise.all(
+            letters.map(async (letter) => {
+              let tcea = "Calculando...";
+              try {
+                const tceaResponse = await ReportService.getTceaById(letter.id);
+                tcea = tceaResponse.tcea
+                    ? `${Number(tceaResponse.tcea).toFixed(2)}%`
+                    : "0%";
+              } catch (error) {
+                console.error(
+                    `Error al obtener el TCEA para la letra con ID ${letter.id}:`,
+                    error.message
+                );
+                tcea = "Error al calcular";
+              }
+
+              return {
+                id: letter.id, // Necesitamos el ID para luego obtener el TCEA
+                factura: letter.letterNumber || "N/A",
+                monto: letter.valorNominal
+                    ? `${letter.currency} ${Number(letter.valorNominal).toFixed(2)}`
+                    : `${letter.currency} 0.00`,
+                interes: letter.tasa?.valor
+                    ? `${Number(letter.tasa.valor).toFixed(2)}%`
+                    : "0%",
+                emision: letter.fechaRegistro
+                    ? new Date(letter.fechaRegistro).toLocaleDateString("es-PE")
+                    : "N/A",
+                vencimiento: letter.fechaVencimiento
+                    ? new Date(letter.fechaVencimiento).toLocaleDateString("es-PE")
+                    : "N/A",
+                fechadescuento: letter.fechaDescuento
+                    ? new Date(letter.fechaDescuento).toLocaleDateString("es-PE")
+                    : "N/A",
+                tcea, // Asignar el TCEA obtenido
+              };
+            })
+        );
+
+        // Mostrar el reporte después de cargar los datos
+        this.showReport = true;
+      } catch (error) {
+        console.error("Error al cargar las letras:", error.message);
+        alert("Error al cargar las letras: " + error.message);
       }
     },
   },
@@ -91,12 +86,12 @@ export default {
 
 <template>
   <main>
-    <!-- Botón para generar reporte, siempre visible -->
-    <button @click="generarReporte" class="generate-report-button">
+    <!-- Botón para generar reporte -->
+    <button @click="fetchLetters" class="generate-report-button">
       Generar Reporte
     </button>
 
-    <!-- Card que contiene la tabla y los resultados, visible después de hacer clic en "Generar Reporte" -->
+    <!-- Card que contiene la tabla y los resultados -->
     <div v-if="showReport" class="card-container">
       <!-- Tabla de reportes -->
       <div class="table-container">
@@ -140,6 +135,7 @@ export default {
     </div>
   </main>
 </template>
+
 
 
 <style scoped>
