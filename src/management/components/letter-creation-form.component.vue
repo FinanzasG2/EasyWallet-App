@@ -19,12 +19,12 @@
           <input type="number" v-model="monto" id="monto" class="form-input" />
         </div>
         <div class="form-group">
-          <label class=form-label for="fecha_vencimiento">Fecha de Vencimiento</label>
+          <label class="form-label" for="fecha_vencimiento">Fecha de Vencimiento</label>
           <input type="date" v-model="fecha_vencimiento" id="fecha_vencimiento" class="form-input" />
           <br/>
-          <label class=form-label for="fecha_descuento">Fecha de Descuento</label>
+          <label class="form-label" for="fecha_descuento">Fecha de Descuento</label>
           <input type="date" v-model="fecha_descuento" id="fecha_descuento" class="form-input" />
-          <div v-if="fechaError" class="error-message">La fecha de descuento no puede ser mayor a la fecha de vencimiento.</div>
+          <div v-if="fechaError" class="error-message">La fecha de descuento debe ser menor a la fecha de vencimiento y mayor o igual a la fecha actual.</div>
         </div>
         <div class="form-group">
           <label class=form-label for="tipoTasa">Tipo de Tasa</label>
@@ -118,12 +118,30 @@ export default {
       usuarioId: null, // Aquí almacenaremos el ID del usuario
     };
   },
+  computed: {
+    fechaError() {
+      const hoy = new Date().toISOString().split("T")[0];
+      return (
+          this.fecha_descuento &&
+          (
+              this.fecha_descuento >= this.fecha_vencimiento ||  // Descuento no puede ser mayor o igual al vencimiento
+              this.fecha_descuento === hoy ||                    // Descuento no puede ser igual a la fecha actual
+              this.fecha_vencimiento === hoy                     // Vencimiento no puede ser igual a la fecha actual
+          )
+      );
+    }
+  },
   created() {
     this.loadUserId();
   },
   methods: {
     toggleCostos() {
       this.mostrarCostos = !this.mostrarCostos;
+      if (!this.mostrarCostos) {
+        this.tiempoCosto = null;
+        this.descripcionCosto = null;
+        this.montoCosto = null;
+      }
     },
     mostrarCapitalizacion() {
       if (this.tipoTasa !== 'NOMINAL') {
@@ -152,6 +170,18 @@ export default {
       return formattedDate.slice(0, -5) + "Z"; // Remueve los milisegundos y conserva el formato esperado
     },
     async submitForm() {
+      if (this.fechaError) {
+        alert("Por favor corrija las fechas antes de continuar.");
+        return;
+      }
+      if (this.tipoTasa !== 'NOMINAL') {
+        this.capitalizacion = 'DIARIA'; // Línea 140: Asignar capitalización como null si el campo está oculto.
+      }
+      if (!this.mostrarCostos) {
+        this.tiempoCosto = null;
+        this.descripcionCosto = null;
+        this.montoCosto = null;
+      }
       const fechaRegistro = this.formatDateToISOString(new Date()); // Formatear fecha actual
       const requestData = {
         usuarioId: this.usuarioId,
@@ -164,7 +194,7 @@ export default {
         valorTasa: parseFloat(this.tasaInteres),
         tipoTasa: this.tipoTasa.toUpperCase(),
         frecuenciaTasa: this.tiempotasa.toUpperCase(),
-        capitalizacionTasa: this.capitalizacion.toUpperCase(),
+        capitalizacionTasa: this.capitalizacion,
         costosAdicionales: this.mostrarCostos
             ? [
               {
