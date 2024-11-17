@@ -27,6 +27,8 @@ import ProgressSpinner from "primevue/progressspinner";
 import Select from "primevue/select";
 import DatePicker from "primevue/datepicker";
 import {Toast, ToastService} from "primevue";
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
 
 const MyPreset = definePreset(Lara, {
     semantic: {

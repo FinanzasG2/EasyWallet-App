@@ -21,7 +21,7 @@
         <td>{{ formatDate(letter.fechaVencimiento) }}</td>
         <td>{{ formatDate(letter.fechaDescuento) }}</td>
         <td>
-          <button class ="delete-button" @click="deleteLetter(parseInt(letter.id,10))">Eliminar</button>
+          <button class ="btn-icon" @click="deleteLetter(parseInt(letter.id,10))"><i class="fas fa-trash"></i></button>
         </td>
       </tr>
       </tbody>
@@ -127,17 +127,28 @@ tbody tr:hover {
 .letters-table th {
   background-color: #e0e0e0;
 }
-
-.delete-button {
+/* Botón base */
+.btn-icon {
+  font-size: 18px; /* Tamaño del ícono */
+  color: #000;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  padding: 8px; /* Espaciado interno */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border-radius: 50%; /* Hace que el fondo circular aparezca de forma uniforme */
 }
 
 
-
-.delete-button {
-  color: #cc0000;
+/* Hover: fondo circular rojo y color del ícono blanco */
+.btn-icon:hover {
+  background-color: #f44336; /* Fondo rojo */
+  color: #fff; /* Ícono en blanco */
+  transform: scale(1.1); /* Agranda ligeramente el ícono */
 }
+
+
 </style>
