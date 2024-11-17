@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080/';
+const baseUrl = 'https://easywallet-restful-api.up.railway.app/';
 
 export const letterBaseUrl = `${baseUrl}api/letras`;
 export const authBaseUrl = `${baseUrl}api/v1/auth`;

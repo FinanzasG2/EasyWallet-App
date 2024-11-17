@@ -63,31 +63,62 @@
           </select>
         </div>
         <div class="form-group">
-          <label class=form-label for="tasaInteres">Tasa de Interés (%)</label>
-          <input type="number" v-model="tasaInteres" id="tasaInteres" class="form-input" />
+          <label class="form-label" for="tasaInteres">Tasa de Interés (%)</label>
+          <input
+              type="number"
+              v-model.number="tasaInteres"
+              id="tasaInteres"
+              step="any"
+              class="form-input"
+          />
         </div>
         <button type="button" @click="toggleCostos" class="btn">
           Agregar Costos Adicionales
         </button>
         <div v-if="mostrarCostos" class="costos-section">
           <h3 class="costos-title">Detalles del Costo Adicional</h3>
-          <div class="form-group">
-            <label class=form-label for="tiempoCosto">Tiempo del Costo</label>
-            <select v-model="tiempoCosto" id="selector-tiempo-costo" class="form-input">
+          <div
+              v-for="(costo, index) in costosAdicionales"
+              :key="index"
+              class="form-group"
+          >
+            <h4>Costo Adicional {{ index + 1 }}</h4>
+            <label class="form-label" for="tiempoCosto">Tiempo del Costo</label>
+            <select
+                v-model="costo.tiempo"
+                id="selector-tiempo-costo"
+                class="form-input"
+            >
               <option value="">Seleccione Tiempo del Costo</option>
               <option value="INICIO">Inicio</option>
               <option value="VENCIMIENTO">Vencimiento</option>
-
             </select>
+            <label class="form-label" for="descripcionCosto">Descripción del Costo</label>
+            <input
+                type="text"
+                v-model="costo.descripcion"
+                id="descripcionCosto"
+                class="form-input"
+            />
+            <label class="form-label" for="montoCosto">Monto del Costo</label>
+            <input
+                type="number"
+                v-model.number="costo.monto"
+                id="montoCosto"
+                step="any"
+                class="form-input"
+            />
+            <button
+                type="button"
+                @click="eliminarCosto(index)"
+                class="btn btn-danger"
+            >
+              Eliminar Costo
+            </button>
           </div>
-          <div class="form-group">
-            <label class=form-label for="descripcionCosto">Descripción del Costo</label>
-            <input type="text" v-model="descripcionCosto" id="descripcionCosto" class="form-input" />
-          </div>
-          <div class="form-group">
-            <label class=form-label for="montoCosto">Monto del Costo</label>
-            <input type="number" v-model="montoCosto" id="montoCosto" class="form-input" />
-          </div>
+          <button type="button" @click="agregarCosto" class="btn">
+            Agregar Otro Costo
+          </button>
         </div>
         <button type="submit" class="btn-primary">Registrar Letra</button>
       </form>
@@ -112,9 +143,7 @@ export default {
       capitalizacion: '',
       tasaInteres: '',
       mostrarCostos: false,
-      tiempoCosto: '',
-      descripcionCosto: '',
-      montoCosto: '',
+      costosAdicionales: [],
       usuarioId: null, // Aquí almacenaremos el ID del usuario
     };
   },
@@ -142,6 +171,16 @@ export default {
         this.descripcionCosto = null;
         this.montoCosto = null;
       }
+    },
+    agregarCosto() {
+      this.costosAdicionales.push({
+        tiempo: "",
+        descripcion: "",
+        monto: null,
+      });
+    },
+    eliminarCosto(index) {
+      this.costosAdicionales.splice(index, 1);
     },
     mostrarCapitalizacion() {
       if (this.tipoTasa !== 'NOMINAL') {
@@ -195,15 +234,11 @@ export default {
         tipoTasa: this.tipoTasa.toUpperCase(),
         frecuenciaTasa: this.tiempotasa.toUpperCase(),
         capitalizacionTasa: this.capitalizacion,
-        costosAdicionales: this.mostrarCostos
-            ? [
-              {
-                descripcion: this.descripcionCosto,
-                monto: parseFloat(this.montoCosto),
-                tiempo: this.tiempoCosto || 'INICIO',
-              },
-            ]
-            : [],
+        costosAdicionales: this.costosAdicionales.map((costo) => ({
+          descripcion: costo.descripcion,
+          monto: parseFloat(costo.monto),
+          tiempo: costo.tiempo || "INICIO",
+        })),
       };
 
       console.log('Datos del formulario:', requestData);
