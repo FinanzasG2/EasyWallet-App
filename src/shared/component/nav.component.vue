@@ -1,7 +1,14 @@
 <script>
+import AuthApiService from "@/path/to/AuthApiService";
 export default {
   name: "navbar",
-}
+  methods: {
+    handleLogout() {
+      AuthApiService.logout(); // Llama al método logout de AuthApiService
+      this.$router.push("/login"); // Redirige al usuario a la página de inicio de sesión
+    },
+  },
+};
 </script>
 
 <template>
@@ -20,7 +27,7 @@ export default {
           <router-link to="/report-page" class="nav-button">Cartera</router-link>
 
           <!-- Botón de cierre de sesión (si es solo un botón sin navegación) -->
-          <button class="logout-button">&#10140</button>
+          <button class="logout-button" @click="handleLogout">&#10140</button>
         </div>
       </div>
     </template>
