@@ -1,5 +1,7 @@
 <script>
-import AuthApiService from "@/path/to/AuthApiService";
+
+import AuthApiService from "@/auth/services/authApiService.js";
+
 export default {
   name: "navbar",
   methods: {
